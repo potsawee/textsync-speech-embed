@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="An investigation into text-synchronous speech representation via cross-attention bottlenecks.">
+  <meta name="keywords" content="SpeechLLM, audio tokenizer, speech embeddings, cross-attention, continuous speech tokenizer">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Investigating Text-Synchronous Speech Representations</title>
+
+  <!-- Open Graph / Social Media -->
+  <meta property="og:title" content="Investigating Text-Synchronous Speech Representations">
+  <meta property="og:description" content="An investigation into text-synchronous speech representation via cross-attention bottlenecks.">
+  <meta property="og:image" content="javascript:void(0)">
+  <meta property="og:url" content="javascript:void(0)">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Investigating Text-Synchronous Speech Representations">
+  <meta name="twitter:description" content="An investigation into text-synchronous speech representation via cross-attention bottlenecks.">
+  <meta name="twitter:image" content="javascript:void(0)">
+
+
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.jpg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-2 publication-title">From Time to Text: Investigating Text-Synchronous Speech Representations</h1>
+          <h2 class="subtitle is-5" style="margin-top: 0.2rem; margin-bottom: 2rem; color: #6a666e; font-weight: 250;">
+            An exploration into turning time-synchronous speech representations into text-synchronous speech representations that are temporally aligned with text embeddings
+          </h2>
+
+          <!-- Author -->
+          <div class="is-size-5 publication-authors" style="margin-bottom: 0rem;">
+            <span class="author-block">
+              <a href="https://potsawee.github.io" style="color: #363636;">Potsawee Manakul</a>
+            </span>
+          </div>
+
+          <div class="is-size-6 publication-authors" style="color: #666; margin-bottom: 0.5rem;">
+            <span class="author-block">
+              with great support from <a href="https://williamheld.com" style="color: #666;">William Held</a> &amp; <a href="https://cs.stanford.edu/~diyiy/" style="color: #666;">Diyi Yang</a>
+            </span>
+          </div>
+
+          <div class="is-size-6 publication-authors">
+            <span class="author-block" style="font-family: monospace; color: #555;">
+              <a href="mailto:potsawee@stanford.edu" style="color: inherit;">
+                <i class="fas fa-envelope" style="font-size: 0.95em; margin-right: 0.3em; vertical-align: middle;"></i>potsawee@stanford.edu
+              </a>
+            </span>
+          </div>
+
+          <div class="column has-text-centered" style="padding-top: 20px; padding-bottom: 0px;">
+            <div class="publication-links">
+                          
+              <!-- Code Link. -->
+              <!-- <span class="link-block" style="margin: 0 5px;">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark" style="min-width: 125px;">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span> -->
+
+              <!-- Model Link. -->
+              <span class="link-block" style="margin: 0 5px;">
+                <a href="https://huggingface.co/potsawee/TextSyncMimi-v1"
+                   class="external-link button is-normal is-rounded is-dark" style="min-width: 125px;">
+                  <span class="icon">
+                      <img src="./static/images/hf-logo-bw.svg" style="width: 20px;">
+                  </span>
+                  <span>Model (TextSyncMimi)</span>
+                  </a>
+              </span>
+
+              <!-- Interactive Demo Link. -->
+              <span class="link-block" style="margin: 0 5px;">
+                <a href="#demo"
+                   class="external-link button is-normal is-rounded is-dark" style="min-width: 125px;">
+                  <span class="icon">
+                      <i class="fas fa-play-circle"></i>
+                  </span>
+                  <span>Demo (Speech Editing)</span>
+                </a>
+              </span>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" style="padding-top: 25pt; background-color: #f5f5f5;">
+  <div class="container is-max-desktop">
+    <!-- Abstract -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">TL;DR</h2>
+        <div class="content has-text-justified">
+          <p>
+            Speech embeddings are inherently <em>time-synchronous</em> (e.g., one vector every 20ms), whereas LLMs operate in a <em>text-synchronous</em> space (one vector per subword). Towards the broader goal of improving speech-text modeling, we investigate this question: <em>could we make speech representations operate in text-synchronous representations?</em>
+          </p>
+          <p>
+            To answer this question, we introduce a lightweight architecture (cross-attention encoder + causal decoder) to an existing audio tokenizer (Mimi), turning it into <strong>TextSyncMimi</strong>.  We train the additional components while freezing the original audio tokenizer using only 1.5K hours of speech data. The resulting model (TextSyncMimi) produces speech representations that are synchronous with text tokens with low reconstruction error.
+          </p>
+          <p>
+            This article discusses the time-text mismatch problem, our architectural solution, and experimental results. We also provide an interactive demo for token-level speech editing, showcasing one utility of the text-synchronous speech representations, alongside the "lessons learned" and pitfalls to avoid from our study.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract -->
+  </div>
+</section>
+
+
+<section class="section" style="padding-top: 0;">
+  <div class="container is-max-widescreen">
+    <div class="columns">
+      
+      <!-- Table of Contents Column (Left) -->
+      <div class="column" style="margin-top: 2.15rem; padding-top: 1rem;">
+        <div class="toc-sticky" style="position: sticky; top: 2rem; max-height: calc(100vh - 4rem); overflow-y: auto;">
+          <p class="menu-label">
+            Table of contents
+          </p>
+          <ul class="menu-list">
+            <li><a href="#">Header &amp; TL;DR</a></li>
+            <li><a href="#background">Background</a></li>
+            <li><a href="#architecture">Proposed Architecture</a></li>
+            <li><a href="#experiments">Experiments</a></li>
+            <li><a href="#demo">Demo: Speech Editing</a></li>
+            <li><a href="#reflections">Reflections</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Main Content Column (Right) -->
+      <div class="column is-four-fifths">
+
+        <!-- Section 1 -->
+        <div class="columns is-centered" style="margin-top: 0.5rem; padding-top: 1rem;">
+          <div class="column is-full-width">
+
+            <h3 id="background" class="title is-4">Background: The Time-Text Alignment Problem</h3>
+
+        <div class="content has-text-justified">
+          <p>
+            Speech embeddings (i.e., encoders) map raw audio waveforms into sequences of continuous vectors that represent fixed time intervals (e.g., one vector every 20ms)---<em>time-synchronous representations</em>. While this works well for speech processing, LLMs operate in a different temporal space: they process semantic concepts as discrete text tokens (e.g., one vector for a subword)---<em>text-synchronous representations</em>. This mismatch could make it more difficult to build multimodal speech-text LLMs. For example, Moshi, SyncLLM, SALMONN-Omni operate in <em>time</em> (e.g., one step = fixed ms), while Llama-Omni2, Qwen3-Omni, and LLM-based TTS (e.g., CSM, OrpheusTTS) mix <em>time</em> and <em>text</em> tokens.
+            <br>
+            <br>
+            <strong>We ask: "can we turn<sup id="fnref:1"><a href="#fn:1" style="color: #3273dc;">[1]</a></sup> existing time-synchronous speech representations into text-synchronous ones?"</strong> 
+
+            <div style="margin-top: -0.5rem;">
+              <p id="fn:1" style="font-size: 0.8em; color: #666; margin-bottom: 0;">
+                <sup>[1]</sup> Training a new speech embedding tokenizer from scratch requires massive data (e.g., Mimi was trained on 7M hours of speech), and this work focuses on adapting existing ones (e.g., with around 1K hours of speech).
+                <!-- <a href="#fnref:1" title="Return to text">↩</a> -->
+              </p>
+            </div>
+
+            <br>
+          </p>
+          
+        </div>
+
+        <div style="display: flex; align-items: stretch; justify-content: center; margin-top: -1.5rem; margin-bottom: 2rem;">
+          <div style="flex: 1; padding: 0 1.0rem; text-align: center;">
+            <figure style="margin: 0; height: 100%; display: flex; flex-direction: column;">
+              <div style="flex-grow: 1; display: flex; align-items: center; justify-content: center;">
+                <img src="./static/images/speech_representation_time.png" alt="Time-synchronous representation" style="max-height: 400px; width: auto;">
+              </div>
+              <figcaption style="font-size: 0.9em; color: #555; margin-top: 1rem; line-height: 1.4;">
+                <strong>Time-synchronous representations:</strong> Waveforms mapped to fixed temporal units.
+              </figcaption>
+            </figure>
+          </div>
+          
+          <div style="border-left: 1px solid #ddd; margin: 0 0.5rem;"></div>
+          
+          <div style="flex: 1; padding: 0 1.0rem; text-align: center;">
+            <figure style="margin: 0; height: 100%; display: flex; flex-direction: column;">
+              <div style="flex-grow: 1; display: flex; align-items: center; justify-content: center;">
+                <img src="./static/images/speech_representation_text.png" alt="Text-synchronous representation" style="max-height: 400px; width: auto;">
+              </div>
+              <figcaption style="font-size: 0.9em; color: #555; margin-top: 1rem; line-height: 1.4;">
+                <strong>Text-synchronous representations:</strong> Direct 1:1 (or fixed ratio) alignment between speech vectors and semantic text tokens.
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 2.5rem 0;">
+
+        <h3 id="architecture" class="title is-4">Proposed Architecture: Text-Synchronous Mimi</h3>
+        <div class="content has-text-justified">
+          <p>
+            To transform these representations, we introduce an <strong>Additional Encoder</strong> and an <strong>Additional Decoder</strong> built on top of an existing speech tokenizer, which we use <a href="https://huggingface.co/kyutai/mimi" target="_blank" style="color: #3273dc;">Mimi</a> as an example in this work. 
+          </p>
+          <p>
+            The speech encoder of Mimi operates at 12.5 Hz (i.e., yielding one representation every 80 ms), which is discretized by an RVQ network with 32 codebooks. The speech decoder of Mimi takes the reconstructed representation (one vector every 80 ms) and decodes the waveform back.  
+          </p>
+          <p>
+            To align Mimi's continuous speech representations with text embeddings (i.e., turning time-sync into text-sync representation), we add a cross-attention network to the encoder, explicitly targeting the text token length. Simultaneously, the causal transformer decoder uses force-aligned signals to map the cross-attention output back to the continuous latent space (for reconstruction or speech generation purpose). By doing this (well we still have to train the cross-attention and the causal decoder), we turn time-sync Mimi tokenizer into text-sync Mimi tokenizer.
+          </p>
+        </div>
+
+        <div style="text-align: center; margin-top: 2rem; margin-bottom: 2rem;">
+          <figure style="margin: 0; display: inline-block; max-width: 80%;">
+            <img src="./static/images/text-sync-mimi.png" alt="Model Overview: Text-Sync Mimi Tokenizer" style="width: 100%; height: auto; border-radius: 8px;">
+            <figcaption style="font-size: 1.1em; color: #555; margin-top: 0.8rem; font-style: italic;">
+              <strong>Model Overview</strong>: Text-Sync Mimi Tokenizer
+            </figcaption>
+          </figure>
+        </div>
+
+        <h4 class="title is-5" style="margin-top: 1.5rem; margin-bottom: 0.8rem;">Cross-Attention Network</h4>
+        <div class="content has-text-justified">
+          <p>
+            An additional encoder (4-layer, 16.8M parameters) that aligns Mimi's speech representations with text embeddings (we use the Llama3 embeddings). It maps the audio sequence to the semantic token space via a cross-attention bottleneck:
+          </p>
+          <ul style="margin-top: -0.5rem; margin-bottom: 1.5rem;">
+            <li><strong>Input:</strong>
+              <ul style="margin-top: 0.2rem; margin-bottom: 0.2rem; margin-left: 1.5rem; list-style-type: circle;">
+                <li><strong>Key &amp; Value:</strong> Mimi's time-sync speech representation (length T)</li>
+                <li><strong>Query:</strong> Llama's text embedding (length N)</li>
+              </ul>
+            </li>
+            <li><strong>Output:</strong> Text-synchronous speech representation (length N)</li>
+          </ul>
+        </div>
+        <h4 class="title is-5" style="margin-top: 2rem; margin-bottom: 0.8rem;">Causal Transformer Decoder</h4>
+        <div class="content has-text-justified">
+          <p>
+            A causal transformer network (4-layer, 12.6M parameters) that reconstructs the time-synchronous latents from the text-synchronous representations:
+          </p>
+          <ul style="margin-top: -0.5rem; margin-bottom: 1rem;">
+            <li><strong>Input:</strong> Output of the cross-attention (length N), e.g., ... [t_i] [s_i] ... </li>
+            <li><strong>Output:</strong> Force-aligned Mimi’s representation (length T), e.g., ... [z_(i,1)] [z_(i,2)] ... [z_(i,t_i)] ...</li>
+          </ul>
+          So, the flattened sequence that the causal transformer models is as follows:
+          <div style="width: 100%; overflow: hidden; margin-top: 1rem;">
+            <pre style="background-color: #f8f9fa; padding: 1rem; border-radius: 6px; font-family: monospace; font-size: 0.82em; border: 1px solid #e1e4e8; overflow-x: auto; white-space: pre; width: 0; min-width: 100%; box-sizing: border-box; color: #333;"><code>&lt;|text_speech_start|&gt; [t_i] [s_i] &lt;|text_speech_end|&gt; &lt;|time_speech_start|&gt; [z_(i,1)] [z_(i,2)] ... [z_(i,t_i)] &lt;|time_speech_end|&gt;</code></pre>
+          </div>
+          <p style="font-size: 1.0em; margin-top: 1.2rem; color: #4a4a4a;">
+            <strong>Note:</strong> We predict the continuous latent \(z\) directly and minimize the \(L_2\)-norm (instead of discretized tokens) so that the output can be fed into the frozen Mimi decoder for waveform generation.
+          </p>
+        </div>
+      </div>
+    </div>
+
+        <div class="content has-text-justified">
+          <p>
+            💻 The <strong>model definition</strong> for the <strong>Text-Sync Mimi tokenizer</strong> can be found at <a href="https://huggingface.co/potsawee/TextSyncMimi-v1/blob/main/modeling_text_sync_mimi.py" target="_blank" style="color: #3273dc;">modeling_text_sync_mimi.py</a>.
+          </p>
+        </div>
+
+      <h4 class="title is-5" style="margin-top: 2rem; margin-bottom: 0.8rem;">Training Losses</h4>
+        <div class="content has-text-justified">
+          <p>
+            The system predicts the continuous latent space directly. We optimize this mapping using a combination of L2-distance between the ground-truth Mimi representation (z) and our causal decoder's prediction (z_hat), alongside a Binary Cross-Entropy (BCE) loss for the stop token <|time_speech_end|>.
+          </p>
+          <div style="background-color: #f9f9f9; padding: 0rem 0rem; border-radius: 8px; margin: 0.5rem 0; border: 1px solid #eee; text-align: center;">
+            <p style="margin: 0;">\[ L = L_2(z, \hat{z}) + \alpha L_{BCE}(\text{stop}) \]</p>
+          </div>
+        </div>
+
+        
+    <!--/ Section 1 -->
+
+      <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 2.5rem 0;">
+
+        <h3 id="experiments" class="title is-4">Experiments</h3>
+
+        <h4 class="title is-5" style="margin-top: 1.5rem; margin-bottom: 0.8rem;">Experimental Setup</h4>
+        <div class="content has-text-justified">
+          <ul style="margin-top: 0rem; margin-bottom: 1.5rem;">
+            <li><strong>Model Parameters:</strong> 
+              <ul style="margin-top: 0.4rem; margin-left: 1.5rem; list-style-type: circle;">
+                <li><strong>Frozen Base:</strong> Mimi Encoder &amp; Decoder</li>
+                <li><strong>Trainable components:</strong> 29.4M parameters in total, comprising a 4-layer Cross-Attention network (16.8M) and a 4-layer Autoregressive (AR) Decoder (12.6M)</li>
+              </ul>
+            </li>
+            <li><strong>Training Data:</strong> A combined dataset of 1.5K hours, consisting of LibriSpeech (960 hours) and LibriTTS (585 hours).</li>
+          </ul>
+
+          <p>
+            We note that the model can be evaluated in different ways. First, since TextSyncMimi must preserve the speech content through its encode-decode architecture, we measure <em>speech reconstruction quality</em> using Word Error Rate (WER) on a standard benchmark. Second, to demonstrate the <em>text-synchronous property</em> of our representations, we show a speech editing application where representations at specific token positions can be swapped between two utterances. Because there is no established benchmark for this task, we provide a live interactive demo to illustrate the capability.
+          </p>
+
+        <h4 class="title is-5" style="margin-top: 2rem; margin-bottom: 1rem;">Speech Reconstruction Performance</h4>
+        <div class="content">
+          <p>
+            First, we report the speech reconstruction performance of our model on a standard benchmark, evaluating the Word Error Rate (WER) on the LibriSpeech test-clean dataset, and compare against baselines and other methods.
+          </p>
+          <div style="margin-top: 1.5rem; display: flex; justify-content: center;">
+            <table style="max-width: 800px; width: 100%; border-collapse: collapse; font-size: 0.95em; border: 1px solid #eee; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+              <thead>
+                <tr style="background-color: #f8f9fa; border-bottom: 2px solid #eee;">
+                  <th style="padding: 12px 15px; text-align: left; width: 20%;">Method</th>
+                  <th style="padding: 12px 15px; text-align: center; width: 22%;">Representation Type</th>
+                  <th style="padding: 12px 15px; text-align: center; width: 30%;">Training datasets</th>
+                  <th style="padding: 12px 15px; text-align: center; width: 18%;">Training data (hours)</th>
+                  <th style="padding: 12px 15px; text-align: right; width: 10%;">WER ↓</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom: 1px solid #eee;">
+                  <td style="padding: 10px 15px; color: #555;">Ground-truth</td>
+                  <td style="padding: 10px 15px; text-align: center; color: #555;">–</td>
+                  <td style="padding: 10px 15px; text-align: center; color: #555;">–</td>
+                  <td style="padding: 10px 15px; text-align: center; color: #555;">–</td>
+                  <td style="padding: 10px 15px; text-align: right; color: #555;">2.12</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #eee;">
+                  <td style="padding: 10px 15px; color: #555;">Mimi</td>
+                  <td style="padding: 10px 15px; text-align: center; color: #555;">Time Synchronous</td>
+                  <td style="padding: 10px 15px; text-align: center; color: #555;">–</td>
+                  <td style="padding: 10px 15px; text-align: center; color: #555;">–</td>
+                  <td style="padding: 10px 15px; text-align: right; color: #555;">2.29</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #eee;">
+                  <td style="padding: 10px 15px; color: #555;"><a href="https://arxiv.org/abs/2504.07053" target="_blank" style="color: #3273dc;">TASTE</a></td>
+                  <td style="padding: 10px 15px; text-align: center; color: #555;">Text Synchronous</td>
+                  <td style="padding: 10px 15px; text-align: center; color: #555;">Emilia + LibriTTS</td>
+                  <td style="padding: 10px 15px; text-align: center; color: #555;">~40K</td>
+                  <td style="padding: 10px 15px; text-align: right; color: #555;">4.40</td>
+                </tr>
+                <tr style="background-color: #fdfdfd; font-weight: bold;">
+                  <td style="padding: 12px 15px;">TextSyncMimi v1</td>
+                  <td style="padding: 12px 15px; text-align: center;">Text Synchronous</td>
+                  <td style="padding: 12px 15px; text-align: center;">LibriSpeech + LibriTTS</td>
+                  <td style="padding: 12px 15px; text-align: center;">~1.5K</td>
+                  <td style="padding: 12px 15px; text-align: right;">3.06</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
+    <!--/ Section 2 -->
+
+    <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 2.5rem 0;">
+
+    <!-- Section 3 - Demo -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h3 id="demo" class="title is-4">Demo: Speech Editing with TextSyncMimi</h3>
+        <div class="content has-text-justified">
+          <p>
+            To demonstrate the text-synchronous property directly, we show zero-shot <em>speech editing</em>: given two utterances, one can swap the latent representation at the <i>i</i>-th text token position between them. This is only possible because our representations are aligned to text tokens. An analogous operation in time-synchronous systems would require an explicit force alignment, or a waveform inspection. As there is no established benchmark for this task, we provide a live demo, running on a Hugging Face Space below.
+          </p>
+          <p style="color: #555;">
+            <em>Note: The embedded demo may not load or respond on this page, please access it directly on 🎮 <strong><a href="https://huggingface.co/spaces/potsawee/TextSyncMimi-SpeechEditing" target="_blank" style="color: #3273dc; text-decoration: underline;">HuggingFace Space</a></strong>.</em>
+          </p>
+        </div>
+        
+        <div style="border: 1px solid #eee; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+          <iframe
+            src="https://potsawee-textsyncmimi-speechediting.hf.space"
+            frameborder="0"
+            width="100%"
+            height="800px"
+            style="border: none; display: block;"
+            allow="microphone"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+    <!--/ Section 3 - Demo -->
+
+    <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 2.5rem 0;">
+
+    <!-- Section 4 - Reflections -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h3 id="reflections" class="title is-4">Reflections &amp; Lessons Learned</h3>
+        <div class="content has-text-justified">
+
+          <h4 class="title is-5" style="margin-top: 1.5rem; margin-bottom: 0.8rem;">A Hidden Assumption in Mimi's Architecture</h4>
+          <p>
+            A practical constraint we encountered: in Mimi—and neural codecs more generally—the RVQ module is not simply a quantizer. It also includes a learned transformation that maps between the encoder's output space and the decoder's input space. Concretely, even without any quantization error, the encoder output and the decoder input are <em>different vectors</em>. We initially treated them as interchangeable (modulo rounding), and discovered mid-way through that this assumption does not hold.
+          </p>
+          <p>
+            The consequence is that our text-synchronous representations cannot be directly discretized using Mimi's existing quantizer. Our TextSyncMimi therefore operates in <em>continuous</em> latent space—which works well for reconstruction tasks, but it would require a new/modified quantizer to be used as discrete tokens in cross-entropy loss training.
+          </p>
+
+          <h4 class="title is-5" style="margin-top: 2rem; margin-bottom: 0.8rem;">Related Work: TASTE</h4>
+          <p>
+            This work was originally conducted in early summer 2025. It was intended as an investigation into better audio tokenizers for speech-text foundation models. With several results still inconclusive, we proceeded with our audio pre-training project, <a href="https://soda-audio.github.io/" target="_blank" style="color: #3273dc;">SODA</a>, using an existing tokenizer (Mimi). Also, we later came across <a href="https://arxiv.org/abs/2504.07053" target="_blank" style="color: #3273dc;">TASTE</a>—a well-executed concurrent work that tackles the same problem of text-sync representations, and TASTE also covers a range of experiments in this space (we recommend reading it!).
+          </p>
+          <h4 class="title is-5" style="margin-top: 2rem; margin-bottom: 0.8rem;">Disentangling Semantic and Acoustic Information</h4>
+          <p>
+            We also explored an additional research direction: disentangling <em>semantic</em> and <em>acoustic</em> information within the text-synchronous latent space, aiming for independent control over the <em>what</em> (content) and the <em>how</em> (prosody/acoustics) of speech. However, this proved challenging—our attempts led to significant degradation in reconstruction quality. Details on this disentanglement investigation (inc. architectural explorations and training objectives) with negative results will be added in a future update.
+          </p>
+
+        </div>
+      </div>
+    </div>
+    <!--/ Section 4 - Reflections -->
+      </div>
+    </div>
+  </div>
+
+
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website adopted the template of <a href="https://soda-audio.github.io/">the SODA project</a>, which uses the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies template</a> under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0 License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
