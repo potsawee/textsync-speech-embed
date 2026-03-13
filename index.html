@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="description"
@@ -11,15 +11,12 @@
   <!-- Open Graph / Social Media -->
   <meta property="og:title" content="Investigating Text-Synchronous Speech Representations">
   <meta property="og:description" content="An investigation into text-synchronous speech representation via cross-attention bottlenecks.">
-  <meta property="og:image" content="javascript:void(0)">
-  <meta property="og:url" content="javascript:void(0)">
   <meta property="og:type" content="website">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Investigating Text-Synchronous Speech Representations">
   <meta name="twitter:description" content="An investigation into text-synchronous speech representation via cross-attention bottlenecks.">
-  <meta name="twitter:image" content="javascript:void(0)">
 
 
 
@@ -40,7 +37,6 @@
   <script src="./static/js/bulma-carousel.min.js"></script>
   <script src="./static/js/bulma-slider.min.js"></script>
   <script src="./static/js/index.js"></script>
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
@@ -77,6 +73,10 @@
                 <i class="fas fa-envelope" style="font-size: 0.95em; margin-right: 0.3em; vertical-align: middle;"></i>potsawee@stanford.edu
               </a>
             </span>
+          </div>
+
+          <div class="is-size-7" style="color: #6a666e; margin-top: 0.5rem;">
+            [Initial Draft &amp; HuggingFace Release: October 2025]
           </div>
 
           <div class="column has-text-centered" style="padding-top: 20px; padding-bottom: 0px;">
@@ -181,7 +181,7 @@
 
         <div class="content has-text-justified">
           <p>
-            Speech embeddings (i.e., encoders) map raw audio waveforms into sequences of continuous vectors that represent fixed time intervals (e.g., one vector every 20ms)---<em>time-synchronous representations</em>. While this works well for speech processing, LLMs operate in a different temporal space: they process semantic concepts as discrete text tokens (e.g., one vector for a subword)---<em>text-synchronous representations</em>. This mismatch could make it more difficult to build multimodal speech-text LLMs. For example, Moshi, SyncLLM, SALMONN-Omni operate in <em>time</em> (e.g., one step = fixed ms), while Llama-Omni2, Qwen3-Omni, and LLM-based TTS (e.g., CSM, OrpheusTTS) mix <em>time</em> and <em>text</em> tokens.
+            Speech embeddings (i.e., encoders) map raw audio waveforms into sequences of continuous vectors that represent fixed time intervals (e.g., one vector every 20ms)&mdash;<em>time-synchronous representations</em>. While this works well for speech processing, LLMs operate in a different temporal space: they process semantic concepts as discrete text tokens (e.g., one vector for a subword)&mdash;<em>text-synchronous representations</em>. This mismatch could make it more difficult to build multimodal speech-text LLMs. For example, Moshi, SyncLLM, SALMONN-Omni operate in <em>time</em> (e.g., one step = fixed ms), while Llama-Omni2, Qwen3-Omni, and LLM-based TTS (e.g., CSM, OrpheusTTS) mix <em>time</em> and <em>text</em> tokens.
             <br>
             <br>
             <strong>We ask: "can we turn<sup id="fnref:1"><a href="#fn:1" style="color: #3273dc;">[1]</a></sup> existing time-synchronous speech representations into text-synchronous ones?"</strong> 
@@ -229,7 +229,7 @@
         <h3 id="architecture" class="title is-4">Proposed Architecture: Text-Synchronous Mimi</h3>
         <div class="content has-text-justified">
           <p>
-            To transform these representations, we introduce an <strong>Additional Encoder</strong> and an <strong>Additional Decoder</strong> built on top of an existing speech tokenizer, which we use <a href="https://huggingface.co/kyutai/mimi" target="_blank" style="color: #3273dc;">Mimi</a> as an example in this work. 
+            To transform these representations, we introduce an <strong>Additional Encoder</strong> and an <strong>Additional Decoder</strong> built on top of an existing speech tokenizer, where we use <a href="https://huggingface.co/kyutai/mimi" target="_blank" style="color: #3273dc;">Mimi</a> as an example in this work. 
           </p>
           <p>
             The speech encoder of Mimi operates at 12.5 Hz (i.e., yielding one representation every 80 ms), which is discretized by an RVQ network with 32 codebooks. The speech decoder of Mimi takes the reconstructed representation (one vector every 80 ms) and decodes the waveform back.  
@@ -241,9 +241,9 @@
 
         <div style="text-align: center; margin-top: 2rem; margin-bottom: 2rem;">
           <figure style="margin: 0; display: inline-block; max-width: 80%;">
-            <img src="./static/images/text-sync-mimi.png" alt="Model Overview: Text-Sync Mimi Tokenizer" style="width: 100%; height: auto; border-radius: 8px;">
+            <img src="./static/images/text-sync-mimi.png" alt="Model Overview: TextSyncMimi Tokenizer" style="width: 100%; height: auto; border-radius: 8px;">
             <figcaption style="font-size: 1.1em; color: #555; margin-top: 0.8rem; font-style: italic;">
-              <strong>Model Overview</strong>: Text-Sync Mimi Tokenizer
+              <strong>Model Overview</strong>: TextSyncMimi Tokenizer
             </figcaption>
           </figure>
         </div>
@@ -443,13 +443,19 @@
 
 <footer class="footer">
   <div class="container">
-    <div class="content has-text-centered">
-    </div>
     <div class="columns is-centered">
       <div class="column is-8">
+        <div class="content" id="BibTeX">
+          <h3 class="title is-4">BibTeX</h3>
+          <pre><code>@article{textsyncmimi2025,
+  author    = {Manakul, Potsawee},
+  title     = {From Time to Text: Investigating Text-Synchronous Speech Representations},
+  year      = {2025}
+}</code></pre>
+        </div>
         <div class="content">
           <p>
-            This website adopted the template of <a href="https://soda-audio.github.io/">the SODA project</a>, which uses the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies template</a> under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0 License</a>.
+            This website adopted the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> template under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0 License</a>.
           </p>
         </div>
       </div>
