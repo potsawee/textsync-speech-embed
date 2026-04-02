@@ -1,0 +1,122 @@
+<svg viewBox="0 0 820 300" xmlns="http://www.w3.org/2000/svg" font-family="'Google Sans', 'Noto Sans', Helvetica, Arial, sans-serif">
+  <defs>
+    <pattern id="d-hatch-blue" patternUnits="userSpaceOnUse" width="4" height="4" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="4" stroke="#3273dc" stroke-width="1.2"/>
+    </pattern>
+    <pattern id="d-hatch-red" patternUnits="userSpaceOnUse" width="4" height="4" patternTransform="rotate(-45)">
+      <line x1="0" y1="0" x2="0" y2="4" stroke="#e74c3c" stroke-width="1.2"/>
+    </pattern>
+    <pattern id="d-hatch-gray" patternUnits="userSpaceOnUse" width="4" height="4" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="4" stroke="#777" stroke-width="1.0"/>
+    </pattern>
+    <marker id="d-arrow" viewBox="0 0 10 6" refX="10" refY="3" markerWidth="7" markerHeight="5" orient="auto-start-reverse">
+      <path d="M0,0 L10,3 L0,6 Z" fill="#555"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="410" y="24" text-anchor="middle" font-size="13" font-weight="700" fill="#333">Causal Transformer Decoder — Flattened Sequence</text>
+
+  <!-- ========== TOKEN SEQUENCE (main row) ========== -->
+  <!-- Y center for circles = 70 -->
+
+  <!-- Group for token i -->
+  <!-- t_i -->
+  <circle cx="42" cy="70" r="13" fill="#3273dc" stroke="#2558a8" stroke-width="1.5"/>
+  <text x="42" y="106" text-anchor="middle" font-size="11" fill="#3273dc" font-weight="600">t<tspan font-size="8" dy="2">i</tspan></text>
+
+  <!-- s_i -->
+  <circle cx="80" cy="70" r="13" fill="#e74c3c" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="80" y="106" text-anchor="middle" font-size="11" fill="#c0392b" font-weight="600">s<tspan font-size="8" dy="2">i</tspan></text>
+
+  <!-- z_(i,1) -->
+  <circle cx="126" cy="70" r="13" fill="url(#d-hatch-gray)" stroke="#777" stroke-width="1.5"/>
+  <text x="126" y="106" text-anchor="middle" font-size="10" fill="#666">z<tspan font-size="7" dy="2">i,1</tspan></text>
+
+  <!-- z_(i,2) -->
+  <circle cx="164" cy="70" r="13" fill="url(#d-hatch-gray)" stroke="#777" stroke-width="1.5"/>
+  <text x="164" y="106" text-anchor="middle" font-size="10" fill="#666">z<tspan font-size="7" dy="2">i,2</tspan></text>
+
+  <!-- dots -->
+  <text x="198" y="75" text-anchor="middle" font-size="14" fill="#888">…</text>
+
+  <!-- z_(i,T_i) -->
+  <circle cx="230" cy="70" r="13" fill="url(#d-hatch-gray)" stroke="#777" stroke-width="1.5"/>
+  <text x="230" y="106" text-anchor="middle" font-size="10" fill="#666">z<tspan font-size="7" dy="2">i,T<tspan font-size="5" dy="1">i</tspan></tspan></text>
+
+  <!-- Bracket under z_(i,*) group -->
+  <path d="M113,120 L113,128 Q113,133 118,133 L171,133 Q176,133 176,138 L176,140 L176,138 Q176,133 181,133 L233,133 Q238,133 238,128 L238,120" fill="none" stroke="#888" stroke-width="1"/>
+  <text x="176" y="153" text-anchor="middle" font-size="9.5" fill="#888" font-style="italic">time-sync latents for token i</text>
+  <text x="176" y="165" text-anchor="middle" font-size="9.5" fill="#888" font-style="italic">(from force alignment)</text>
+
+  <!-- Separator dots between groups -->
+  <rect x="260" y="66" width="2" height="2" rx="1" fill="#aaa"/>
+  <rect x="270" y="66" width="2" height="2" rx="1" fill="#aaa"/>
+  <rect x="280" y="66" width="2" height="2" rx="1" fill="#aaa"/>
+  <rect x="260" y="73" width="2" height="2" rx="1" fill="#aaa"/>
+  <rect x="270" y="73" width="2" height="2" rx="1" fill="#aaa"/>
+  <rect x="280" y="73" width="2" height="2" rx="1" fill="#aaa"/>
+
+  <!-- Group for token i+1 -->
+  <!-- t_(i+1) -->
+  <circle cx="318" cy="70" r="13" fill="#3273dc" stroke="#2558a8" stroke-width="1.5"/>
+  <text x="318" y="106" text-anchor="middle" font-size="10" fill="#3273dc" font-weight="600">t<tspan font-size="7" dy="2">i+1</tspan></text>
+
+  <!-- s_(i+1) -->
+  <circle cx="358" cy="70" r="13" fill="#e74c3c" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="358" y="106" text-anchor="middle" font-size="10" fill="#c0392b" font-weight="600">s<tspan font-size="7" dy="2">i+1</tspan></text>
+
+  <!-- z_(i+1,1) -->
+  <circle cx="406" cy="70" r="13" fill="url(#d-hatch-gray)" stroke="#777" stroke-width="1.5"/>
+  <text x="406" y="106" text-anchor="middle" font-size="9.5" fill="#666">z<tspan font-size="6.5" dy="2">i+1,1</tspan></text>
+
+  <!-- z_(i+1,2) -->
+  <circle cx="446" cy="70" r="13" fill="url(#d-hatch-gray)" stroke="#777" stroke-width="1.5"/>
+  <text x="446" y="106" text-anchor="middle" font-size="9.5" fill="#666">z<tspan font-size="6.5" dy="2">i+1,2</tspan></text>
+
+  <!-- dots -->
+  <text x="480" y="75" text-anchor="middle" font-size="14" fill="#888">…</text>
+
+  <!-- z_(i+1,T_(i+1)) -->
+  <circle cx="516" cy="70" r="13" fill="url(#d-hatch-gray)" stroke="#777" stroke-width="1.5"/>
+  <text x="516" y="106" text-anchor="middle" font-size="9.5" fill="#666">z<tspan font-size="6.5" dy="2">i+1,T<tspan font-size="4.5" dy="0.5">i+1</tspan></tspan></text>
+
+  <!-- Bracket under z_(i+1,*) group -->
+  <path d="M393,120 L393,128 Q393,133 398,133 L453,133 Q458,133 458,138 L458,140 L458,138 Q458,133 463,133 L519,133 Q524,133 524,128 L524,120" fill="none" stroke="#888" stroke-width="1"/>
+  <text x="458" y="153" text-anchor="middle" font-size="9.5" fill="#888" font-style="italic">time-sync latents for token i+1</text>
+
+  <!-- Trailing dots -->
+  <rect x="546" y="66" width="2" height="2" rx="1" fill="#aaa"/>
+  <rect x="556" y="66" width="2" height="2" rx="1" fill="#aaa"/>
+  <rect x="566" y="66" width="2" height="2" rx="1" fill="#aaa"/>
+  <rect x="546" y="73" width="2" height="2" rx="1" fill="#aaa"/>
+  <rect x="556" y="73" width="2" height="2" rx="1" fill="#aaa"/>
+  <rect x="566" y="73" width="2" height="2" rx="1" fill="#aaa"/>
+
+  <!-- ========== CAUSAL ARROW ========== -->
+  <line x1="42" y1="44" x2="555" y2="44" stroke="#555" stroke-width="1.5" marker-end="url(#d-arrow)" stroke-dasharray="5,3"/>
+  <text x="300" y="38" text-anchor="middle" font-size="10" fill="#555" font-style="italic">causal (left-to-right) prediction</text>
+
+  <!-- ========== ANNOTATIONS (bottom) ========== -->
+  <line x1="20" y1="185" x2="800" y2="185" stroke="#ddd" stroke-width="1"/>
+
+  <!-- Legend -->
+  <g transform="translate(30, 210)">
+    <!-- t_i legend -->
+    <circle cx="12" cy="0" r="9" fill="#3273dc" stroke="#2558a8" stroke-width="1.2"/>
+    <text x="28" y="4" font-size="11" fill="#444">t<tspan font-size="8" dy="1.5">i</tspan><tspan dy="-1.5" font-size="11"> = text embedding of token i  (from Llama)</tspan></text>
+
+    <!-- s_i legend -->
+    <circle cx="12" cy="30" r="9" fill="#e74c3c" stroke="#c0392b" stroke-width="1.2"/>
+    <text x="28" y="34" font-size="11" fill="#444">s<tspan font-size="8" dy="1.5">i</tspan><tspan dy="-1.5" font-size="11"> = text-sync speech embedding of token i  (from cross-attention encoder)</tspan></text>
+
+    <!-- z_(i,j) legend -->
+    <circle cx="12" cy="60" r="9" fill="url(#d-hatch-gray)" stroke="#777" stroke-width="1.2"/>
+    <text x="28" y="64" font-size="11" fill="#444">z<tspan font-size="8" dy="1.5">i,j</tspan><tspan dy="-1.5" font-size="11"> = j-th time-sync latent vector for token i  (prediction target during training)</tspan></text>
+  </g>
+
+  <!-- Note about training vs inference -->
+  <text x="30" y="294" font-size="10" fill="#888" font-style="italic">During training, the number of z-frames per token (T</text>
+  <text x="315" y="294" font-size="8" fill="#888" font-style="italic">i</text>
+  <text x="322" y="294" font-size="10" fill="#888" font-style="italic">) is known from force alignment. At inference, the model predicts until a learned stop token.</text>
+</svg>

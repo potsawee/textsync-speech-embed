@@ -69,8 +69,8 @@
 
           <div class="is-size-6 publication-authors">
             <span class="author-block" style="font-family: monospace; color: #555;">
-              <a href="mailto:potsawee@stanford.edu" style="color: inherit;">
-                <i class="fas fa-envelope" style="font-size: 0.95em; margin-right: 0.3em; vertical-align: middle;"></i>potsawee@stanford.edu
+              <a href="/cdn-cgi/l/email-protection#4a3a253e392b3d2f2f0a393e2b242c25382e642f2e3f" style="color: inherit;">
+                <i class="fas fa-envelope" style="font-size: 0.95em; margin-right: 0.3em; vertical-align: middle;"></i><span class="__cf_email__" data-cfemail="bdcdd2c9cedccad8d8fdcec9dcd3dbd2cfd993d8d9c8">[email&#160;protected]</span>
               </a>
             </span>
           </div>
@@ -104,14 +104,26 @@
                   </a>
               </span>
 
-              <!-- Interactive Demo Link. -->
+              <!-- Audio Samples Link. -->
               <span class="link-block" style="margin: 0 5px;">
-                <a href="#demo"
+                <a href="#audio-samples"
+                   class="external-link button is-normal is-rounded is-dark" style="min-width: 125px;">
+                  <span class="icon">
+                      <i class="fas fa-headphones"></i>
+                  </span>
+                  <span>Audio Samples</span>
+                </a>
+              </span>
+
+              <!-- Live Demo Link. -->
+              <span class="link-block" style="margin: 0 5px;">
+                <a href="https://huggingface.co/spaces/potsawee/TextSyncMimi-SpeechEditing"
+                   target="_blank"
                    class="external-link button is-normal is-rounded is-dark" style="min-width: 125px;">
                   <span class="icon">
                       <i class="fas fa-play-circle"></i>
                   </span>
-                  <span>Demo (Speech Editing)</span>
+                  <span>Live Demo</span>
                 </a>
               </span>
 
@@ -133,7 +145,7 @@
         <h2 class="title is-3">TL;DR</h2>
         <div class="content has-text-justified">
           <p>
-            Speech embeddings are inherently <em>time-synchronous</em> (e.g., one vector every 20ms), whereas LLMs operate in a <em>text-synchronous</em> space (one vector per subword). Towards the broader goal of improving speech-text modeling, we investigate this question: <em>could we make speech representations operate in text-synchronous representations?</em>
+            Speech embeddings are inherently <em>time-synchronous</em> (e.g., one vector every 80ms), whereas LLMs operate in a <em>text-synchronous</em> space (one vector per subword). Towards the broader goal of improving speech-text modeling, we investigate this question: <em>could we turn speech representations into text-synchronous ones?</em>
           </p>
           <p>
             To answer this question, we introduce a lightweight architecture (cross-attention encoder + causal decoder) to an existing audio tokenizer (Mimi), turning it into <strong>TextSyncMimi</strong>.  We train the additional components while freezing the original audio tokenizer using only 1.5K hours of speech data. The resulting model (TextSyncMimi) produces speech representations that are synchronous with text tokens with low reconstruction error.
@@ -162,9 +174,16 @@
           <ul class="menu-list">
             <li><a href="#">Header &amp; TL;DR</a></li>
             <li><a href="#background">Background</a></li>
-            <li><a href="#architecture">Proposed Architecture</a></li>
+            <li>
+              <a href="#architecture">Proposed Architecture</a>
+              <ul>
+                <li><a href="#architecture">TextSyncMimi</a></li>
+                <li><a href="#encoding">Encoding</a></li>
+                <li><a href="#decoding">Decoding</a></li>
+              </ul>
+            </li>
             <li><a href="#experiments">Experiments</a></li>
-            <li><a href="#demo">Demo: Speech Editing</a></li>
+            <li><a href="#audio-samples">Audio Samples</a></li>
             <li><a href="#reflections">Reflections</a></li>
           </ul>
         </div>
@@ -181,7 +200,7 @@
 
         <div class="content has-text-justified">
           <p>
-            Speech embeddings (i.e., encoders) map raw audio waveforms into sequences of continuous vectors that represent fixed time intervals (e.g., one vector every 20ms)&mdash;<em>time-synchronous representations</em>. While this works well for speech processing, LLMs operate in a different temporal space: they process semantic concepts as discrete text tokens (e.g., one vector for a subword)&mdash;<em>text-synchronous representations</em>. This mismatch could make it more difficult to build multimodal speech-text LLMs. For example, Moshi, SyncLLM, SALMONN-Omni operate in <em>time</em> (e.g., one step = fixed ms), while Llama-Omni2, Qwen3-Omni, and LLM-based TTS (e.g., CSM, OrpheusTTS) mix <em>time</em> and <em>text</em> tokens.
+            Speech embeddings (i.e., encoders) map raw audio waveforms into sequences of continuous vectors that represent fixed time intervals (e.g., one vector every 80ms)&mdash;<em>time-synchronous representations</em>. While this works well for speech processing, LLMs operate in a different temporal space: they process semantic concepts as discrete text tokens (e.g., one vector for a subword)&mdash;<em>text-synchronous representations</em>. This mismatch could make it more difficult to build multimodal speech-text LLMs. For example, <a href="https://arxiv.org/pdf/2410.00037" target="_blank" style="color: #3273dc;">Moshi</a>, <a href="https://syncllm.cs.washington.edu/" target="_blank" style="color: #3273dc;">SyncLLM</a>, SALMONN-Omni operate in <em>time</em> (e.g., one step = fixed ms), while <a href="https://arxiv.org/pdf/2505.02625" target="_blank" style="color: #3273dc;">Llama-Omni2</a>, <a href="https://arxiv.org/pdf/2509.17765" target="_blank" style="color: #3273dc;">Qwen3-Omni</a>, and LLM-based TTS (e.g., <a href="https://huggingface.co/sesame/csm-1b" target="_blank" style="color: #3273dc;">CSM</a>, <a href="https://github.com/canopyai/Orpheus-TTS" target="_blank" style="color: #3273dc;">OrpheusTTS</a>) mix <em>time</em> and <em>text</em> tokens.
             <br>
             <br>
             <strong>We ask: "can we turn<sup id="fnref:1"><a href="#fn:1" style="color: #3273dc;">[1]</a></sup> existing time-synchronous speech representations into text-synchronous ones?"</strong> 
@@ -198,11 +217,11 @@
           
         </div>
 
-        <div style="display: flex; align-items: stretch; justify-content: center; margin-top: -1.5rem; margin-bottom: 2rem;">
-          <div style="flex: 1; padding: 0 1.0rem; text-align: center;">
+        <div style="display: flex; align-items: stretch; justify-content: center; margin-top: -1.5rem; margin-bottom: 2rem; gap: 0.5rem;">
+          <div style="flex: 1; padding: 0 0.25rem; text-align: center;">
             <figure style="margin: 0; height: 100%; display: flex; flex-direction: column;">
               <div style="flex-grow: 1; display: flex; align-items: center; justify-content: center;">
-                <img src="./static/images/speech_representation_time.png" alt="Time-synchronous representation" style="max-height: 400px; width: auto;">
+                <img src="./static/images/speech_representation_time.png" alt="Time-synchronous representation" style="width: 100%; height: auto;">
               </div>
               <figcaption style="font-size: 0.9em; color: #555; margin-top: 1rem; line-height: 1.4;">
                 <strong>Time-synchronous representations:</strong> Waveforms mapped to fixed temporal units.
@@ -210,12 +229,12 @@
             </figure>
           </div>
           
-          <div style="border-left: 1px solid #ddd; margin: 0 0.5rem;"></div>
+          <div style="border-left: 1px solid #ddd; margin: 0;"></div>
           
-          <div style="flex: 1; padding: 0 1.0rem; text-align: center;">
+          <div style="flex: 1; padding: 0 0.25rem; text-align: center;">
             <figure style="margin: 0; height: 100%; display: flex; flex-direction: column;">
               <div style="flex-grow: 1; display: flex; align-items: center; justify-content: center;">
-                <img src="./static/images/speech_representation_text.png" alt="Text-synchronous representation" style="max-height: 400px; width: auto;">
+                <img src="./static/images/speech_representation_text.png" alt="Text-synchronous representation" style="width: 100%; height: auto;">
               </div>
               <figcaption style="font-size: 0.9em; color: #555; margin-top: 1rem; line-height: 1.4;">
                 <strong>Text-synchronous representations:</strong> Direct 1:1 (or fixed ratio) alignment between speech vectors and semantic text tokens.
@@ -248,10 +267,10 @@
           </figure>
         </div>
 
-        <h4 class="title is-5" style="margin-top: 1.5rem; margin-bottom: 0.8rem;">Cross-Attention Network</h4>
+        <h4 id="encoding" class="title is-5" style="margin-top: 1.5rem; margin-bottom: 0.8rem;"><u>Encoding: Cross-Attention Network</u></h4>
         <div class="content has-text-justified">
           <p>
-            An additional encoder (4-layer, 16.8M parameters) that aligns Mimi's speech representations with text embeddings (we use the Llama3 embeddings). It maps the audio sequence to the semantic token space via a cross-attention bottleneck:
+            An additional encoder (4-layer, 16.8M parameters) that aligns Mimi's speech representations with text embeddings (we use the Llama3 embeddings, specifically from <code style="font-size: 0.85em;">meta-llama/Llama-3.1-8B-Instruct</code>). It maps the audio sequence to the semantic token space via a cross-attention bottleneck:
           </p>
           <ul style="margin-top: -0.5rem; margin-bottom: 1.5rem;">
             <li><strong>Input:</strong>
@@ -263,30 +282,70 @@
             <li><strong>Output:</strong> Text-synchronous speech representation (length N)</li>
           </ul>
         </div>
-        <h4 class="title is-5" style="margin-top: 2rem; margin-bottom: 0.8rem;">Causal Transformer Decoder</h4>
+
+        <div style="text-align: center; margin-top: 1.5rem; margin-bottom: 2rem;">
+          <figure style="margin: 0; display: inline-block; max-width: 85%;">
+            <img src="./static/images/cross_attention_encoding.svg" alt="Cross-Attention Encoding: from waveform to text-synchronous speech representation" style="width: 100%; height: auto;">
+            <figcaption style="font-size: 0.95em; color: #555; margin-top: 0.8rem; font-style: italic;">
+              <strong>Cross-Attention Encoder</strong>: Mimi encodes the waveform into T time-synchronous vectors (z₁,…,z<sub>T</sub>), which serve as Key/Value. Text embeddings (t₁,…,t<sub>N</sub>) serve as Query. The cross-attention compresses T→N, producing speech vectors (s₁,…,s<sub>N</sub>) aligned 1:1 with text tokens. The final text-synchronous representation interleaves both: [t₁, s₁, t₂, s₂, …, t<sub>N</sub>, s<sub>N</sub>].
+            </figcaption>
+          </figure>
+        </div>
+
+        <h4 id="decoding" class="title is-5" style="margin-top: 2rem; margin-bottom: 0.8rem;"><u>Decoding: Causal Transformer Decoder</u></h4>
         <div class="content has-text-justified">
           <p>
-            A causal transformer network (4-layer, 12.6M parameters) that reconstructs the time-synchronous latents from the text-synchronous representations:
+            The causal transformer decoder (4-layer, 12.6M parameters) reconstructs the time-synchronous latents from the text-synchronous representations. Given the encoder’s output [t<sub>i</sub>, s<sub>i</sub>] for each text token, the decoder must produce a <em>variable-length</em> sequence of Mimi latent vectors [z<sub>(i,1)</sub>, z<sub>(i,2)</sub>, …, z<sub>(i,T<sub>i</sub>)</sub>] for each token—where T<sub>i</sub> depends on how many speech frames correspond to the i-th text token.
           </p>
-          <ul style="margin-top: -0.5rem; margin-bottom: 1rem;">
-            <li><strong>Input:</strong> Output of the cross-attention (length N), e.g., ... [t_i] [s_i] ... </li>
-            <li><strong>Output:</strong> Force-aligned Mimi’s representation (length T), e.g., ... [z_(i,1)] [z_(i,2)] ... [z_(i,t_i)] ...</li>
-          </ul>
-          So, the flattened sequence that the causal transformer models is as follows:
+
+          <h5 style="font-size: 1em; font-weight: 600; color: #4a4a4a; margin-top: 1.5rem; margin-bottom: 0.6rem;">Force Alignment (Training Only)</h5>
+          <p>
+            To train this decoder, we need to know the mapping between text tokens and speech frames—i.e., which consecutive <em>time-synchronous</em> frames [z<sub>(i,1)</sub>, …, z<sub>(i,T<sub>i</sub>)</sub>] correspond to each text token i. We obtain this via <strong>force alignment</strong>: given an audio file and its text transcript, force alignment produces character-level timestamps, which we then map to subword token boundaries.
+          </p>
+          <p>
+            In practice, we use <a href="https://github.com/m-bain/whisperX" target="_blank" style="color: #3273dc;">WhisperX</a> (backed by wav2vec2 alignment models) to obtain character-level alignments, and then aggregate them to match the Llama tokenizer’s subword segmentation. This gives us the start/end timestamps for each subword token, which we use to slice the Mimi encoder’s output into per-token groups. The alignment was performed on LibriSpeech (960 hours) and LibriTTS (585 hours) for the English data used in this work.
+          </p>
+          <p style="margin-top: 0.5rem;">
+            <strong>Important:</strong> Force alignment is needed <em>only during training</em> to construct the target sequences. At inference time, the decoder autoregressively generates z-frames and uses a learned stop token to determine when to stop generating z-frames for the current token and proceed to the next—no alignment information is required at inference.
+          </p>
+
+          <h5 style="font-size: 1em; font-weight: 600; color: #4a4a4a; margin-top: 1.5rem; margin-bottom: 0.6rem;">Decoder Sequence</h5>
+          <p>
+            With the per-token frame counts from force alignment, we construct a flattened sequence that interleaves the text-synchronous representations with the time-synchronous latents. The causal transformer is trained to predict this joint continuous sequence autoregressively (left-to-right):
+          </p>
+        </div>
+
+        <div style="text-align: center; margin-top: 1.5rem; margin-bottom: 1.5rem;">
+          <figure style="margin: 0; display: inline-block; max-width: 95%;">
+            <img src="./static/images/causal_decoder_sequence.svg" alt="Causal Transformer Decoder: flattened sequence of text-sync and time-sync representations" style="width: 100%; height: auto;">
+            <figcaption style="font-size: 0.95em; color: #555; margin-top: 0.8rem; font-style: italic;">
+              <strong>Decoder Sequence</strong>: For each text token i, the text embedding t<sub>i</sub> and speech embedding s<sub>i</sub> (from the cross-attention encoder) are followed by the corresponding time-synchronous Mimi latents z<sub>(i,1)</sub>,…,z<sub>(i,T<sub>i</sub>)</sub>. The causal transformer predicts the z-frames autoregressively.
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="content has-text-justified">
+          <p>
+            More concretely, the repeating unit for each token i in the flattened sequence is:
+          </p>
           <div style="width: 100%; overflow: hidden; margin-top: 1rem;">
-            <pre style="background-color: #f8f9fa; padding: 1rem; border-radius: 6px; font-family: monospace; font-size: 0.82em; border: 1px solid #e1e4e8; overflow-x: auto; white-space: pre; width: 0; min-width: 100%; box-sizing: border-box; color: #333;"><code>&lt;|text_speech_start|&gt; [t_i] [s_i] &lt;|text_speech_end|&gt; &lt;|time_speech_start|&gt; [z_(i,1)] [z_(i,2)] ... [z_(i,t_i)] &lt;|time_speech_end|&gt;</code></pre>
+            <pre style="background-color: #f8f9fa; padding: 1rem; border-radius: 6px; font-family: monospace; font-size: 0.82em; border: 1px solid #e1e4e8; overflow-x: auto; white-space: pre; width: 0; min-width: 100%; box-sizing: border-box; color: #333;"><code>&lt;|text_speech_start|&gt; [t_i] [s_i] &lt;|text_speech_end|&gt; &lt;|time_speech_start|&gt; [z_(i,1)] [z_(i,2)] ... [z_(i,T_i)] &lt;|time_speech_end|&gt;</code></pre>
           </div>
           <p style="font-size: 1.0em; margin-top: 1.2rem; color: #4a4a4a;">
-            <strong>Note:</strong> We predict the continuous latent \(z\) directly and minimize the \(L_2\)-norm (instead of discretized tokens) so that the output can be fed into the frozen Mimi decoder for waveform generation.
+            At each step, the decoder predicts the continuous latent z directly (minimizing the L<sub>2</sub>-norm), so the predicted vectors can be fed into the frozen Mimi decoder for waveform generation. The &lt;|time_speech_end|&gt; token is trained with a binary cross-entropy loss to signal when to stop generating z-frames for the current token and proceed to the next.
+          </p>
+          <p style="font-size: 1.0em; margin-top: 0.8rem; color: #4a4a4a;">
+            <strong>Streaming decoding:</strong> Because the causal transformer operates left-to-right, the decoding process is naturally <em>streamable</em>. As soon as each z-frame is predicted, it can be immediately passed to the frozen Mimi decoder to produce audio—there is no need to wait for the entire sequence to be generated before starting waveform synthesis.
           </p>
         </div>
       </div>
     </div>
 
         <div class="content has-text-justified">
-          <p>
-            💻 The <strong>model definition</strong> for the <strong>Text-Sync Mimi tokenizer</strong> can be found at <a href="https://huggingface.co/potsawee/TextSyncMimi-v1/blob/main/modeling_text_sync_mimi.py" target="_blank" style="color: #3273dc;">modeling_text_sync_mimi.py</a>.
-          </p>
+          <div style="display: inline-flex; align-items: center; gap: 0.6rem; background: #eef4ff; border: 1px solid #c2d8ff; border-left: 4px solid #3273dc; border-radius: 6px; padding: 0.6rem 1rem; margin-top: 0.25rem; font-size: 0.95em;">
+            <span>💻</span>
+            <span style="color: #444; text-align: left;">The <strong>model definition</strong> for the <strong>Text-Sync Mimi tokenizer</strong> can be found at <strong><a href="https://huggingface.co/potsawee/TextSyncMimi-v1/blob/main/modeling_text_sync_mimi.py" target="_blank" style="color: #3273dc;">modeling_text_sync_mimi.py</a></strong>.</span>
+          </div>
         </div>
 
       <h4 class="title is-5" style="margin-top: 2rem; margin-bottom: 0.8rem;">Training Losses</h4>
@@ -319,7 +378,7 @@
           </ul>
 
           <p>
-            We note that the model can be evaluated in different ways. First, since TextSyncMimi must preserve the speech content through its encode-decode architecture, we measure <em>speech reconstruction quality</em> using Word Error Rate (WER) on a standard benchmark. Second, to demonstrate the <em>text-synchronous property</em> of our representations, we show a speech editing application where representations at specific token positions can be swapped between two utterances. Because there is no established benchmark for this task, we provide a live interactive demo to illustrate the capability.
+            We note that the model can be evaluated in different ways. First, since TextSyncMimi must preserve the speech content through its encode-decode architecture, we measure <em>speech reconstruction quality</em> using Word Error Rate (WER) on a standard benchmark. Second, to demonstrate the <em>text-synchronous property</em> of our representations, we show a speech editing application where representations at specific token positions can be swapped between two utterances. We provide <a href="#audio-samples" style="color: #3273dc;">audio samples</a> below and a <a href="https://huggingface.co/spaces/potsawee/TextSyncMimi-SpeechEditing" target="_blank" style="color: #3273dc;">live interactive demo</a> on Hugging Face to demonstrate both capabilities.
           </p>
 
         <h4 class="title is-5" style="margin-top: 2rem; margin-bottom: 1rem;">Speech Reconstruction Performance</h4>
@@ -350,7 +409,7 @@
                   <td style="padding: 10px 15px; color: #555;">Mimi</td>
                   <td style="padding: 10px 15px; text-align: center; color: #555;">Time Synchronous</td>
                   <td style="padding: 10px 15px; text-align: center; color: #555;">–</td>
-                  <td style="padding: 10px 15px; text-align: center; color: #555;">–</td>
+                  <td style="padding: 10px 15px; text-align: center; color: #555;">7M</td>
                   <td style="padding: 10px 15px; text-align: right; color: #555;">2.29</td>
                 </tr>
                 <tr style="border-bottom: 1px solid #eee;">
@@ -364,12 +423,13 @@
                   <td style="padding: 12px 15px;">TextSyncMimi v1</td>
                   <td style="padding: 12px 15px; text-align: center;">Text Synchronous</td>
                   <td style="padding: 12px 15px; text-align: center;">LibriSpeech + LibriTTS</td>
-                  <td style="padding: 12px 15px; text-align: center;">~1.5K</td>
+                  <td style="padding: 12px 15px; text-align: center;">~1.5K*</td>
                   <td style="padding: 12px 15px; text-align: right;">3.06</td>
                 </tr>
               </tbody>
             </table>
           </div>
+          <p style="font-size: 0.82em; color: #888; margin-top: 0.8rem;">*1.5K hours is used to train the additional cross-attention encoder and causal decoder only; the base Mimi encoder and decoder remain frozen.</p>
         </div>
 
 
@@ -377,32 +437,152 @@
 
     <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 2.5rem 0;">
 
-    <!-- Section 3 - Demo -->
+    <!-- Section 3 - Audio Samples -->
     <div class="columns is-centered">
       <div class="column is-full-width">
-        <h3 id="demo" class="title is-4">Demo: Speech Editing with TextSyncMimi</h3>
+        <h3 id="audio-samples" class="title is-4">Audio Samples</h3>
         <div class="content has-text-justified">
           <p>
-            To demonstrate the text-synchronous property directly, we show zero-shot <em>speech editing</em>: given two utterances, one can swap the latent representation at the <i>i</i>-th text token position between them. This is only possible because our representations are aligned to text tokens. An analogous operation in time-synchronous systems would require an explicit force alignment, or a waveform inspection. As there is no established benchmark for this task, we provide a live demo, running on a Hugging Face Space below.
+            Below we demonstrate two key properties of TextSyncMimi: <strong>(1)</strong> speech reconstruction through its encode-decode architecture, and <strong>(2)</strong> speech editing at the text token level enabled by the text-synchronous nature of its representations. Because representations are aligned with text tokens, one can swap the latent representations at the target token position between two utterances—an operation that is only meaningful with text-synchronous representations.
           </p>
-          <p style="color: #555;">
-            <em>Note: The embedded demo may not load or respond on this page, please access it directly on 🎮 <strong><a href="https://huggingface.co/spaces/potsawee/TextSyncMimi-SpeechEditing" target="_blank" style="color: #3273dc; text-decoration: underline;">HuggingFace Space</a></strong>.</em>
+          <div style="display: inline-flex; align-items: center; gap: 0.6rem; background: #eef4ff; border: 1px solid #c2d8ff; border-left: 4px solid #3273dc; border-radius: 6px; padding: 0.6rem 1rem; margin-top: 0.25rem; font-size: 0.95em;">
+            <span>🎮</span>
+            <span style="color: #444;">Think this is a cherry-picked example? Try your own inputs on the <strong><a href="https://huggingface.co/spaces/potsawee/TextSyncMimi-SpeechEditing" target="_blank" style="color: #3273dc;">Live Demo on Hugging Face Space 🤗</a></strong></span>
+          </div>
+        </div>
+
+        <!-- Property 1: Speech Reconstruction -->
+        <h4 class="title is-5" style="margin-top: 2rem; margin-bottom: 0.8rem; color: #4a4a4a;">① Speech Reconstruction</h4>
+        <div class="content has-text-justified" style="margin-bottom: 1.5rem;">
+          <p style="font-size: 0.95em; color: #555;">
+            TextSyncMimi encodes speech into text-synchronous representations and decodes them back to a waveform. The reconstructed audio should closely match the original, demonstrating that minimal information is lost through the bottleneck.
           </p>
         </div>
-        
-        <div style="border: 1px solid #eee; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
-          <iframe
-            src="https://potsawee-textsyncmimi-speechediting.hf.space"
-            frameborder="0"
-            width="100%"
-            height="800px"
-            style="border: none; display: block;"
-            allow="microphone"
-          ></iframe>
+
+        <div style="background: #f9fafb; border: 1px solid #e8ecf0; border-radius: 10px; padding: 1.5rem; margin-bottom: 2.5rem;">
+          <!-- Transcript -->
+          <p style="font-size: 0.85em; font-weight: 600; color: #4a4a4a; margin-bottom: 0.4rem; text-transform: uppercase; letter-spacing: 0.05em;">Transcript</p>
+          <p style="font-size: 0.9em; color: #555; margin-bottom: 1.2rem; font-style: italic; line-height: 1.5;">"This example illustrates the reconstruction property of the tokenizer model as well as zero-shot token-level speech editing capability of the model."</p>
+
+          <div style="display: flex; gap: 24px; align-items: flex-start;">
+            <!-- Original -->
+            <div style="flex: 1; min-width: 0;">
+              <div style="display: flex; align-items: center; margin-bottom: 0.6rem;">
+                <span style="display: inline-block; background: #3273dc; color: white; font-size: 0.7em; font-weight: 700; padding: 2px 8px; border-radius: 4px; margin-right: 0.5rem; letter-spacing: 0.03em;">ORIGINAL</span>
+              </div>
+              <audio controls style="width: 100%; height: 40px;">
+                <source src="./static/audio/ex1_audio1_original.wav" type="audio/wav">
+              </audio>
+              <p style="font-size: 0.8em; color: #888; margin-top: 0.4em;">Speaker A — original recording</p>
+            </div>
+            <!-- arrow -->
+            <div style="display: flex; align-items: center; padding-top: 1.2rem; flex-shrink: 0;">
+              <span style="font-size: 1.5em; color: #bbb;">→</span>
+            </div>
+            <!-- Reconstructed -->
+            <div style="flex: 1; min-width: 0;">
+              <div style="display: flex; align-items: center; margin-bottom: 0.6rem;">
+                <span style="display: inline-block; background: #48c774; color: white; font-size: 0.7em; font-weight: 700; padding: 2px 8px; border-radius: 4px; margin-right: 0.5rem; letter-spacing: 0.03em;">RECONSTRUCTED</span>
+              </div>
+              <audio controls style="width: 100%; height: 40px;">
+                <source src="./static/audio/ex1_audio1_reconstruct.wav" type="audio/wav">
+              </audio>
+              <p style="font-size: 0.8em; color: #888; margin-top: 0.4em;">Speaker A — after encode → decode (with TextSyncMimi)</p>
+            </div>
+          </div>
         </div>
+
+        <!-- Property 2: Speech Editing -->
+        <h4 class="title is-5" style="margin-top: 2.5rem; margin-bottom: 0.8rem; color: #4a4a4a;">② Speech Editing via Representation Swapping</h4>
+        <div class="content has-text-justified" style="margin-bottom: 1.5rem;">
+          <p style="font-size: 0.95em; color: #555;">
+            Given two utterances (using the same underlying text spoken by different speakers in this example), we can swap the text-synchronous representation at selected token positions from Speaker B into Speaker A's sequence. The decoder then produces speech that follows Speaker A's voice for most tokens but switches to Speaker B's voice characteristics at the swapped positions. This is only possible because our representations are aligned to text tokens.
+          </p>
+        </div>
+
+        <!-- Speech editing diagram -->
+        <figure style="text-align: center; margin: 0 0 2rem 0;">
+          <img src="./static/images/speech_editing_diagram.svg" alt="Speech editing diagram: swapping text-synchronous representations between Speaker A and Speaker B at selected token positions" style="width: 100%; max-width: 680px; height: auto;">
+          <figcaption style="font-size: 0.85em; color: #888; margin-top: 0.6rem; font-style: italic;">
+            Selected token positions in Speaker A's representations are replaced with Speaker B's representations before decoding.
+          </figcaption>
+        </figure>
+
+        <div style="background: #f9fafb; border: 1px solid #e8ecf0; border-radius: 10px; padding: 1.5rem; margin-bottom: 1rem;">
+          <!-- Input Utterances -->
+          <!-- Transcript -->
+          <p style="font-size: 0.85em; font-weight: 600; color: #4a4a4a; margin-bottom: 0.4rem; text-transform: uppercase; letter-spacing: 0.05em;">Shared Transcript</p>
+          <p style="font-size: 0.9em; color: #555; margin-bottom: 1.2rem; font-style: italic; line-height: 1.5;">"This example illustrates the reconstruction property of the tokenizer model as well as zero-shot token-level speech editing capability of the model."</p>
+
+          <p style="font-size: 0.85em; font-weight: 600; color: #4a4a4a; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.05em;">Input Utterances</p>
+          <div style="display: flex; gap: 24px; align-items: flex-start; margin-bottom: 1.5rem;">
+            <!-- Speaker A -->
+            <div style="flex: 1; min-width: 0;">
+              <div style="display: flex; align-items: center; margin-bottom: 0.6rem;">
+                <span style="display: inline-block; background: #3273dc; color: white; font-size: 0.7em; font-weight: 700; padding: 2px 8px; border-radius: 4px; margin-right: 0.5rem; letter-spacing: 0.03em;">SPEAKER A</span>
+              </div>
+              <audio controls style="width: 100%; height: 40px;">
+                <source src="./static/audio/ex1_audio1_original.wav" type="audio/wav">
+              </audio>
+            </div>
+            <!-- Speaker B -->
+            <div style="flex: 1; min-width: 0;">
+              <div style="display: flex; align-items: center; margin-bottom: 0.6rem;">
+                <span style="display: inline-block; background: #ff6b35; color: white; font-size: 0.7em; font-weight: 700; padding: 2px 8px; border-radius: 4px; margin-right: 0.5rem; letter-spacing: 0.03em;">SPEAKER B</span>
+              </div>
+              <audio controls style="width: 100%; height: 40px;">
+                <source src="./static/audio/ex1_audio2_original.wav" type="audio/wav">
+              </audio>
+            </div>
+          </div>
+
+          <!-- Divider -->
+          <div style="border-top: 1px dashed #d5d5d5; margin: 1rem 0 1.2rem 0;"></div>
+
+          <!-- Edited Output -->
+          <p style="font-size: 0.85em; font-weight: 600; color: #4a4a4a; margin-bottom: 0.6rem; text-transform: uppercase; letter-spacing: 0.05em;">Edited Output</p>
+          <!-- Token visualization -->
+          <div style="margin-bottom: 1.2rem; line-height: 2;">
+            <span style="font-size: 0.82em; color: #888; display: block; margin-bottom: 0.4rem;">Swapped tokens shown in <span style="color: #ff6b35; font-weight: 600;">orange</span> (from Speaker B):</span>
+            <span style="display: inline-block; padding: 2px 6px; margin: 2px 1px; border-radius: 3px; font-size: 0.82em; background: #eef2f7; color: #3273dc;">This</span>
+            <span style="display: inline-block; padding: 2px 6px; margin: 2px 1px; border-radius: 3px; font-size: 0.82em; background: #eef2f7; color: #3273dc;">example</span>
+            <span style="display: inline-block; padding: 2px 6px; margin: 2px 1px; border-radius: 3px; font-size: 0.82em; background: #eef2f7; color: #3273dc;">illustrates</span>
+            <span style="display: inline-block; padding: 2px 6px; margin: 2px 1px; border-radius: 3px; font-size: 0.82em; background: #eef2f7; color: #3273dc;">the</span>
+            <span style="display: inline-block; padding: 2px 6px; margin: 2px 1px; border-radius: 3px; font-size: 0.82em; background: #ff6b35; color: white; font-weight: 600;">reconstruction</span>
+            <span style="display: inline-block; padding: 2px 6px; margin: 2px 1px; border-radius: 3px; font-size: 0.82em; background: #ff6b35; color: white; font-weight: 600;">property</span>
+            <span style="display: inline-block; padding: 2px 6px; margin: 2px 1px; border-radius: 3px; font-size: 0.82em; background: #eef2f7; color: #3273dc;">of</span>
+            <span style="display: inline-block; padding: 2px 6px; margin: 2px 1px; border-radius: 3px; font-size: 0.82em; background: #eef2f7; color: #3273dc;">the</span>
+            <span style="display: inline-block; padding: 2px 6px; margin: 2px 1px; border-radius: 3px; font-size: 0.82em; background: #eef2f7; color: #3273dc;">tokenizer</span>
+            <span style="display: inline-block; padding: 2px 6px; margin: 2px 1px; border-radius: 3px; font-size: 0.82em; background: #eef2f7; color: #3273dc;">model</span>
+            <span style="display: inline-block; padding: 2px 6px; margin: 2px 1px; border-radius: 3px; font-size: 0.82em; background: #eef2f7; color: #3273dc;">as</span>
+            <span style="display: inline-block; padding: 2px 6px; margin: 2px 1px; border-radius: 3px; font-size: 0.82em; background: #eef2f7; color: #3273dc;">well</span>
+            <span style="display: inline-block; padding: 2px 6px; margin: 2px 1px; border-radius: 3px; font-size: 0.82em; background: #eef2f7; color: #3273dc;">as</span>
+            <span style="display: inline-block; padding: 2px 6px; margin: 2px 1px; border-radius: 3px; font-size: 0.82em; background: #eef2f7; color: #3273dc;">zero</span>
+            <span style="display: inline-block; padding: 2px 6px; margin: 2px 1px; border-radius: 3px; font-size: 0.82em; background: #eef2f7; color: #3273dc;">-shot</span>
+            <span style="display: inline-block; padding: 2px 6px; margin: 2px 1px; border-radius: 3px; font-size: 0.82em; background: #ff6b35; color: white; font-weight: 600;">token</span>
+            <span style="display: inline-block; padding: 2px 6px; margin: 2px 1px; border-radius: 3px; font-size: 0.82em; background: #ff6b35; color: white; font-weight: 600;">-level</span>
+            <span style="display: inline-block; padding: 2px 6px; margin: 2px 1px; border-radius: 3px; font-size: 0.82em; background: #ff6b35; color: white; font-weight: 600;">speech</span>
+            <span style="display: inline-block; padding: 2px 6px; margin: 2px 1px; border-radius: 3px; font-size: 0.82em; background: #ff6b35; color: white; font-weight: 600;">editing</span>
+            <span style="display: inline-block; padding: 2px 6px; margin: 2px 1px; border-radius: 3px; font-size: 0.82em; background: #eef2f7; color: #3273dc;">capability</span>
+            <span style="display: inline-block; padding: 2px 6px; margin: 2px 1px; border-radius: 3px; font-size: 0.82em; background: #eef2f7; color: #3273dc;">of</span>
+            <span style="display: inline-block; padding: 2px 6px; margin: 2px 1px; border-radius: 3px; font-size: 0.82em; background: #eef2f7; color: #3273dc;">the</span>
+            <span style="display: inline-block; padding: 2px 6px; margin: 2px 1px; border-radius: 3px; font-size: 0.82em; background: #eef2f7; color: #3273dc;">model</span>
+            <span style="display: inline-block; padding: 2px 6px; margin: 2px 1px; border-radius: 3px; font-size: 0.82em; background: #eef2f7; color: #3273dc;">.</span>
+          </div>
+          <div style="max-width: 50%;">
+            <div style="display: flex; align-items: center; margin-bottom: 0.6rem;">
+              <span style="display: inline-block; background: linear-gradient(135deg, #3273dc, #ff6b35); color: white; font-size: 0.7em; font-weight: 700; padding: 2px 8px; border-radius: 4px; margin-right: 0.5rem; letter-spacing: 0.03em;">EDITED (A + B)</span>
+            </div>
+            <audio controls style="width: 100%; height: 40px;">
+              <source src="./static/audio/ex1_speech_editing.wav" type="audio/wav">
+            </audio>
+            <p style="font-size: 0.8em; color: #888; margin-top: 0.4em;">Speaker A's sequence with highlighted positions replaced by Speaker B's representations</p>
+          </div>
+        </div>
+
       </div>
     </div>
-    <!--/ Section 3 - Demo -->
+    <!--/ Section 3 - Audio Samples -->
 
     <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 2.5rem 0;">
 
@@ -455,13 +635,4 @@
         </div>
         <div class="content">
           <p>
-            This website adopted the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> template under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0 License</a>.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</footer>
-
-</body>
-</html>
+            This website adopted the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> template under a <a rel="license" href="http://creativecommons.or

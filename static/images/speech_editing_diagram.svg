@@ -1,0 +1,248 @@
+<svg width="100%" viewBox="0 0 680 530" xmlns="http://www.w3.org/2000/svg" style="font-family: 'Google Sans', 'Noto Sans', sans-serif;">
+
+  <!-- Speaker A section -->
+  <rect x="30" y="32" width="86" height="22" rx="4" fill="#3273dc" opacity="0.9"/>
+  <text x="73" y="47" text-anchor="middle" font-size="11" font-weight="700" fill="#fff" letter-spacing="0.04em">SPEAKER A</text>
+
+  <!-- Waveform icon A -->
+  <g transform="translate(36,66)">
+    <line x1="0" y1="14" x2="4" y2="14" stroke="#3273dc" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="8" y1="8" x2="8" y2="20" stroke="#3273dc" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="14" y1="4" x2="14" y2="24" stroke="#3273dc" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="20" y1="9" x2="20" y2="19" stroke="#3273dc" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="26" y1="2" x2="26" y2="26" stroke="#3273dc" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="32" y1="7" x2="32" y2="21" stroke="#3273dc" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="38" y1="11" x2="38" y2="17" stroke="#3273dc" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="44" y1="6" x2="44" y2="22" stroke="#3273dc" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="50" y1="10" x2="50" y2="18" stroke="#3273dc" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="56" y1="13" x2="56" y2="15" stroke="#3273dc" stroke-width="1.5" stroke-linecap="round"/>
+  </g>
+
+  <!-- Encode arrow A -->
+  <line x1="106" y1="80" x2="148" y2="80" stroke="#999" stroke-width="1"/>
+  <polygon points="148,76 156,80 148,84" fill="#999"/>
+  <text x="131" y="72" text-anchor="middle" font-size="10" fill="#888">encode</text>
+
+  <!-- Speaker A token blocks: the, cat, sat, on, mat -->
+  <!-- "the" -->
+  <rect x="160" y="60" width="64" height="40" rx="6" fill="#3273dc" opacity="0.1" stroke="#3273dc" stroke-width="0.8"/>
+  <rect x="163" y="64" width="58" height="7" rx="2" fill="#3273dc" opacity="0.25"/>
+  <rect x="163" y="74" width="40" height="5" rx="1.5" fill="#3273dc" opacity="0.18"/>
+  <rect x="163" y="82" width="50" height="5" rx="1.5" fill="#3273dc" opacity="0.13"/>
+  <rect x="163" y="90" width="34" height="5" rx="1.5" fill="#3273dc" opacity="0.18"/>
+  <text x="192" y="114" text-anchor="middle" font-size="12" fill="#666">the</text>
+
+  <!-- "cat" -->
+  <rect x="234" y="60" width="64" height="40" rx="6" fill="#3273dc" opacity="0.1" stroke="#3273dc" stroke-width="0.8"/>
+  <rect x="237" y="64" width="52" height="7" rx="2" fill="#3273dc" opacity="0.25"/>
+  <rect x="237" y="74" width="44" height="5" rx="1.5" fill="#3273dc" opacity="0.18"/>
+  <rect x="237" y="82" width="56" height="5" rx="1.5" fill="#3273dc" opacity="0.13"/>
+  <rect x="237" y="90" width="38" height="5" rx="1.5" fill="#3273dc" opacity="0.18"/>
+  <text x="266" y="114" text-anchor="middle" font-size="12" fill="#666">cat</text>
+
+  <!-- "sat" -->
+  <rect x="308" y="60" width="64" height="40" rx="6" fill="#3273dc" opacity="0.1" stroke="#3273dc" stroke-width="0.8"/>
+  <rect x="311" y="64" width="46" height="7" rx="2" fill="#3273dc" opacity="0.25"/>
+  <rect x="311" y="74" width="56" height="5" rx="1.5" fill="#3273dc" opacity="0.18"/>
+  <rect x="311" y="82" width="42" height="5" rx="1.5" fill="#3273dc" opacity="0.13"/>
+  <rect x="311" y="90" width="50" height="5" rx="1.5" fill="#3273dc" opacity="0.18"/>
+  <text x="340" y="114" text-anchor="middle" font-size="12" fill="#666">sat</text>
+
+  <!-- "on" -->
+  <rect x="382" y="60" width="64" height="40" rx="6" fill="#3273dc" opacity="0.1" stroke="#3273dc" stroke-width="0.8"/>
+  <rect x="385" y="64" width="50" height="7" rx="2" fill="#3273dc" opacity="0.25"/>
+  <rect x="385" y="74" width="42" height="5" rx="1.5" fill="#3273dc" opacity="0.18"/>
+  <rect x="385" y="82" width="54" height="5" rx="1.5" fill="#3273dc" opacity="0.13"/>
+  <rect x="385" y="90" width="36" height="5" rx="1.5" fill="#3273dc" opacity="0.18"/>
+  <text x="414" y="114" text-anchor="middle" font-size="12" fill="#666">on</text>
+
+  <!-- "mat" -->
+  <rect x="456" y="60" width="64" height="40" rx="6" fill="#3273dc" opacity="0.1" stroke="#3273dc" stroke-width="0.8"/>
+  <rect x="459" y="64" width="42" height="7" rx="2" fill="#3273dc" opacity="0.25"/>
+  <rect x="459" y="74" width="54" height="5" rx="1.5" fill="#3273dc" opacity="0.18"/>
+  <rect x="459" y="82" width="38" height="5" rx="1.5" fill="#3273dc" opacity="0.13"/>
+  <rect x="459" y="90" width="48" height="5" rx="1.5" fill="#3273dc" opacity="0.18"/>
+  <text x="488" y="114" text-anchor="middle" font-size="12" fill="#666">mat</text>
+
+  <!-- h^A label -->
+  <text x="565" y="84" font-size="12" fill="#888" font-style="italic">h</text>
+  <text x="573" y="78" font-size="8" fill="#888" font-style="italic">A</text>
+  <text x="573" y="92" font-size="8" fill="#888" font-style="italic">1..5</text>
+
+
+  <!-- Speaker B section -->
+  <rect x="30" y="162" width="86" height="22" rx="4" fill="#ff6b35" opacity="0.9"/>
+  <text x="73" y="177" text-anchor="middle" font-size="11" font-weight="700" fill="#fff" letter-spacing="0.04em">SPEAKER B</text>
+
+  <!-- Waveform icon B -->
+  <g transform="translate(36,196)">
+    <line x1="0" y1="13" x2="4" y2="15" stroke="#ff6b35" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="8" y1="6" x2="8" y2="22" stroke="#ff6b35" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="14" y1="10" x2="14" y2="18" stroke="#ff6b35" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="20" y1="3" x2="20" y2="25" stroke="#ff6b35" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="26" y1="8" x2="26" y2="20" stroke="#ff6b35" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="32" y1="12" x2="32" y2="16" stroke="#ff6b35" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="38" y1="5" x2="38" y2="23" stroke="#ff6b35" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="44" y1="9" x2="44" y2="19" stroke="#ff6b35" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="50" y1="7" x2="50" y2="21" stroke="#ff6b35" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="56" y1="12" x2="56" y2="16" stroke="#ff6b35" stroke-width="1.5" stroke-linecap="round"/>
+  </g>
+
+  <!-- Encode arrow B -->
+  <line x1="106" y1="210" x2="148" y2="210" stroke="#999" stroke-width="1"/>
+  <polygon points="148,206 156,210 148,214" fill="#999"/>
+  <text x="131" y="202" text-anchor="middle" font-size="10" fill="#888">encode</text>
+
+  <!-- Speaker B token blocks -->
+  <!-- "the" -->
+  <rect x="160" y="190" width="64" height="40" rx="6" fill="#ff6b35" opacity="0.1" stroke="#ff6b35" stroke-width="0.8"/>
+  <rect x="163" y="194" width="56" height="7" rx="2" fill="#ff6b35" opacity="0.25"/>
+  <rect x="163" y="204" width="46" height="5" rx="1.5" fill="#ff6b35" opacity="0.18"/>
+  <rect x="163" y="212" width="53" height="5" rx="1.5" fill="#ff6b35" opacity="0.13"/>
+  <rect x="163" y="220" width="38" height="5" rx="1.5" fill="#ff6b35" opacity="0.18"/>
+  <text x="192" y="244" text-anchor="middle" font-size="12" fill="#666">the</text>
+
+  <!-- "cat" (will be swapped — highlighted) -->
+  <rect x="234" y="190" width="64" height="40" rx="6" fill="#ff6b35" opacity="0.15" stroke="#ff6b35" stroke-width="1.8"/>
+  <rect x="237" y="194" width="48" height="7" rx="2" fill="#ff6b35" opacity="0.35"/>
+  <rect x="237" y="204" width="56" height="5" rx="1.5" fill="#ff6b35" opacity="0.25"/>
+  <rect x="237" y="212" width="40" height="5" rx="1.5" fill="#ff6b35" opacity="0.2"/>
+  <rect x="237" y="220" width="52" height="5" rx="1.5" fill="#ff6b35" opacity="0.25"/>
+  <text x="266" y="244" text-anchor="middle" font-size="12" font-weight="600" fill="#ff6b35">cat</text>
+
+  <!-- "sat" -->
+  <rect x="308" y="190" width="64" height="40" rx="6" fill="#ff6b35" opacity="0.1" stroke="#ff6b35" stroke-width="0.8"/>
+  <rect x="311" y="194" width="43" height="7" rx="2" fill="#ff6b35" opacity="0.25"/>
+  <rect x="311" y="204" width="53" height="5" rx="1.5" fill="#ff6b35" opacity="0.18"/>
+  <rect x="311" y="212" width="48" height="5" rx="1.5" fill="#ff6b35" opacity="0.13"/>
+  <rect x="311" y="220" width="36" height="5" rx="1.5" fill="#ff6b35" opacity="0.18"/>
+  <text x="340" y="244" text-anchor="middle" font-size="12" fill="#666">sat</text>
+
+  <!-- "on" (will be swapped — highlighted) -->
+  <rect x="382" y="190" width="64" height="40" rx="6" fill="#ff6b35" opacity="0.15" stroke="#ff6b35" stroke-width="1.8"/>
+  <rect x="385" y="194" width="54" height="7" rx="2" fill="#ff6b35" opacity="0.35"/>
+  <rect x="385" y="204" width="44" height="5" rx="1.5" fill="#ff6b35" opacity="0.25"/>
+  <rect x="385" y="212" width="50" height="5" rx="1.5" fill="#ff6b35" opacity="0.2"/>
+  <rect x="385" y="220" width="38" height="5" rx="1.5" fill="#ff6b35" opacity="0.25"/>
+  <text x="414" y="244" text-anchor="middle" font-size="12" font-weight="600" fill="#ff6b35">on</text>
+
+  <!-- "mat" -->
+  <rect x="456" y="190" width="64" height="40" rx="6" fill="#ff6b35" opacity="0.1" stroke="#ff6b35" stroke-width="0.8"/>
+  <rect x="459" y="194" width="50" height="7" rx="2" fill="#ff6b35" opacity="0.25"/>
+  <rect x="459" y="204" width="42" height="5" rx="1.5" fill="#ff6b35" opacity="0.18"/>
+  <rect x="459" y="212" width="54" height="5" rx="1.5" fill="#ff6b35" opacity="0.13"/>
+  <rect x="459" y="220" width="40" height="5" rx="1.5" fill="#ff6b35" opacity="0.18"/>
+  <text x="488" y="244" text-anchor="middle" font-size="12" fill="#666">mat</text>
+
+  <!-- h^B label -->
+  <text x="565" y="214" font-size="12" fill="#888" font-style="italic">h</text>
+  <text x="573" y="208" font-size="8" fill="#888" font-style="italic">B</text>
+  <text x="573" y="222" font-size="8" fill="#888" font-style="italic">1..5</text>
+
+  <!-- Vertical alignment lines (faint, non-swapped) -->
+  <line x1="192" y1="100" x2="192" y2="190" stroke="#ccc" stroke-width="0.5" stroke-dasharray="3 3" opacity="0.4"/>
+  <line x1="340" y1="100" x2="340" y2="190" stroke="#ccc" stroke-width="0.5" stroke-dasharray="3 3" opacity="0.4"/>
+  <line x1="488" y1="100" x2="488" y2="190" stroke="#ccc" stroke-width="0.5" stroke-dasharray="3 3" opacity="0.4"/>
+
+  <!-- Highlighted alignment for swapped positions -->
+  <line x1="266" y1="100" x2="266" y2="190" stroke="#ff6b35" stroke-width="1" stroke-dasharray="4 3" opacity="0.45"/>
+  <line x1="414" y1="100" x2="414" y2="190" stroke="#ff6b35" stroke-width="1" stroke-dasharray="4 3" opacity="0.45"/>
+
+  <!-- SWAP labels between rows -->
+  <text x="266" y="152" text-anchor="middle" font-size="10" font-weight="600" fill="#ff6b35" opacity="0.75">swap</text>
+  <text x="414" y="152" text-anchor="middle" font-size="10" font-weight="600" fill="#ff6b35" opacity="0.75">swap</text>
+
+  <!-- Down arrows from A (keep) — faint blue dashes -->
+  <line x1="192" y1="120" x2="192" y2="345" stroke="#3273dc" stroke-width="0.7" opacity="0.25" stroke-dasharray="3 4"/>
+  <line x1="340" y1="120" x2="340" y2="345" stroke="#3273dc" stroke-width="0.7" opacity="0.25" stroke-dasharray="3 4"/>
+  <line x1="488" y1="120" x2="488" y2="345" stroke="#3273dc" stroke-width="0.7" opacity="0.25" stroke-dasharray="3 4"/>
+
+  <!-- Down arrows from B (swap) — solid orange with arrowhead -->
+  <line x1="266" y1="230" x2="266" y2="345" stroke="#ff6b35" stroke-width="1.2" opacity="0.5"/>
+  <polygon points="262,345 266,353 270,345" fill="#ff6b35" opacity="0.6"/>
+  <line x1="414" y1="230" x2="414" y2="345" stroke="#ff6b35" stroke-width="1.2" opacity="0.5"/>
+  <polygon points="410,345 414,353 418,345" fill="#ff6b35" opacity="0.6"/>
+
+  <!-- Separator -->
+  <line x1="50" y1="284" x2="540" y2="284" stroke="#ddd" stroke-width="0.5" stroke-dasharray="6 4"/>
+  <text x="295" y="310" text-anchor="middle" font-size="12" font-weight="600" fill="#555">Representation swapping</text>
+  <text x="295" y="326" text-anchor="middle" font-size="11" fill="#999">Replace selected positions in A's sequence with B's representations</text>
+
+  <!-- Edited result row -->
+  <!-- "the" from A -->
+  <rect x="160" y="355" width="64" height="40" rx="6" fill="#3273dc" opacity="0.1" stroke="#3273dc" stroke-width="0.8"/>
+  <rect x="163" y="359" width="58" height="7" rx="2" fill="#3273dc" opacity="0.25"/>
+  <rect x="163" y="369" width="40" height="5" rx="1.5" fill="#3273dc" opacity="0.18"/>
+  <rect x="163" y="377" width="50" height="5" rx="1.5" fill="#3273dc" opacity="0.13"/>
+  <rect x="163" y="385" width="34" height="5" rx="1.5" fill="#3273dc" opacity="0.18"/>
+  <text x="192" y="409" text-anchor="middle" font-size="12" fill="#3273dc">the</text>
+  <text x="192" y="421" text-anchor="middle" font-size="9" fill="#aaa">(A)</text>
+
+  <!-- "cat" from B (swapped) -->
+  <rect x="234" y="355" width="64" height="40" rx="6" fill="#ff6b35" opacity="0.15" stroke="#ff6b35" stroke-width="1.8"/>
+  <rect x="237" y="359" width="48" height="7" rx="2" fill="#ff6b35" opacity="0.35"/>
+  <rect x="237" y="369" width="56" height="5" rx="1.5" fill="#ff6b35" opacity="0.25"/>
+  <rect x="237" y="377" width="40" height="5" rx="1.5" fill="#ff6b35" opacity="0.2"/>
+  <rect x="237" y="385" width="52" height="5" rx="1.5" fill="#ff6b35" opacity="0.25"/>
+  <text x="266" y="409" text-anchor="middle" font-size="12" font-weight="600" fill="#ff6b35">cat</text>
+  <text x="266" y="421" text-anchor="middle" font-size="9" fill="#aaa">(B)</text>
+
+  <!-- "sat" from A -->
+  <rect x="308" y="355" width="64" height="40" rx="6" fill="#3273dc" opacity="0.1" stroke="#3273dc" stroke-width="0.8"/>
+  <rect x="311" y="359" width="46" height="7" rx="2" fill="#3273dc" opacity="0.25"/>
+  <rect x="311" y="369" width="56" height="5" rx="1.5" fill="#3273dc" opacity="0.18"/>
+  <rect x="311" y="377" width="42" height="5" rx="1.5" fill="#3273dc" opacity="0.13"/>
+  <rect x="311" y="385" width="50" height="5" rx="1.5" fill="#3273dc" opacity="0.18"/>
+  <text x="340" y="409" text-anchor="middle" font-size="12" fill="#3273dc">sat</text>
+  <text x="340" y="421" text-anchor="middle" font-size="9" fill="#aaa">(A)</text>
+
+  <!-- "on" from B (swapped) -->
+  <rect x="382" y="355" width="64" height="40" rx="6" fill="#ff6b35" opacity="0.15" stroke="#ff6b35" stroke-width="1.8"/>
+  <rect x="385" y="359" width="54" height="7" rx="2" fill="#ff6b35" opacity="0.35"/>
+  <rect x="385" y="369" width="44" height="5" rx="1.5" fill="#ff6b35" opacity="0.25"/>
+  <rect x="385" y="377" width="50" height="5" rx="1.5" fill="#ff6b35" opacity="0.2"/>
+  <rect x="385" y="385" width="38" height="5" rx="1.5" fill="#ff6b35" opacity="0.25"/>
+  <text x="414" y="409" text-anchor="middle" font-size="12" font-weight="600" fill="#ff6b35">on</text>
+  <text x="414" y="421" text-anchor="middle" font-size="9" fill="#aaa">(B)</text>
+
+  <!-- "mat" from A -->
+  <rect x="456" y="355" width="64" height="40" rx="6" fill="#3273dc" opacity="0.1" stroke="#3273dc" stroke-width="0.8"/>
+  <rect x="459" y="359" width="42" height="7" rx="2" fill="#3273dc" opacity="0.25"/>
+  <rect x="459" y="369" width="54" height="5" rx="1.5" fill="#3273dc" opacity="0.18"/>
+  <rect x="459" y="377" width="38" height="5" rx="1.5" fill="#3273dc" opacity="0.13"/>
+  <rect x="459" y="385" width="48" height="5" rx="1.5" fill="#3273dc" opacity="0.18"/>
+  <text x="488" y="409" text-anchor="middle" font-size="12" fill="#3273dc">mat</text>
+  <text x="488" y="421" text-anchor="middle" font-size="9" fill="#aaa">(A)</text>
+
+  <!-- Decode arrow -->
+  <line x1="530" y1="375" x2="568" y2="375" stroke="#999" stroke-width="1"/>
+  <polygon points="568,371 576,375 568,379" fill="#999"/>
+  <text x="553" y="367" text-anchor="middle" font-size="10" fill="#888">decode</text>
+
+  <!-- Output waveform (mixed colors) -->
+  <g transform="translate(588,361)">
+    <line x1="0" y1="14" x2="4" y2="14" stroke="#3273dc" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="8" y1="8" x2="8" y2="20" stroke="#3273dc" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="14" y1="4" x2="14" y2="24" stroke="#ff6b35" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="20" y1="9" x2="20" y2="19" stroke="#ff6b35" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="26" y1="2" x2="26" y2="26" stroke="#3273dc" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="32" y1="7" x2="32" y2="21" stroke="#3273dc" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="38" y1="11" x2="38" y2="17" stroke="#ff6b35" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="44" y1="6" x2="44" y2="22" stroke="#ff6b35" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="50" y1="10" x2="50" y2="18" stroke="#3273dc" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="56" y1="13" x2="56" y2="15" stroke="#3273dc" stroke-width="1.5" stroke-linecap="round"/>
+  </g>
+  <text x="616" y="404" text-anchor="middle" font-size="11" fill="#666">edited</text>
+  <text x="616" y="417" text-anchor="middle" font-size="11" fill="#666">speech</text>
+
+  <!-- Bottom annotation -->
+  <text x="340" y="462" text-anchor="middle" font-size="11" fill="#999">Each block = one continuous speech representation vector, aligned 1:1 with a text token</text>
+  <text x="340" y="478" text-anchor="middle" font-size="11" fill="#999">Inner bars represent latent dimensions of h ∈ ℝ&#x1D49; (illustrative)</text>
+
+  <!-- Legend -->
+  <rect x="160" y="500" width="12" height="12" rx="2" fill="#3273dc" opacity="0.12" stroke="#3273dc" stroke-width="0.8"/>
+  <text x="178" y="510" font-size="11" fill="#888">Speaker A representation (kept)</text>
+  <rect x="380" y="500" width="12" height="12" rx="2" fill="#ff6b35" opacity="0.15" stroke="#ff6b35" stroke-width="1.5"/>
+  <text x="398" y="510" font-size="11" fill="#888">Speaker B representation (swapped in)</text>
+
+</svg>

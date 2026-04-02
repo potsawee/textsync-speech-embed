@@ -1,0 +1,20 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Python virtual environment
+.venv_pdf/
+.venv/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+
+# PDF content (generated/extracted)
+pdf_content.txt
+
+# Notion docs (local PDFs)
+notion_docs/
